@@ -23,9 +23,10 @@ import (
 	"io"
 
 	"crypto/ecdh"
-
-	"github.com/cloudflare/circl/kem"
-	"github.com/cloudflare/circl/kem/hybrid"
+    	"github.com/ryndia/circl/kem"
+    	"github.com/ryndia/circl/kem/mceliece"
+    	"github.com/cloudflare/circl/kem"
+    	"github.com/cloudflare/circl/kem/hybrid"
 )
 
 // Either *ecdh.PrivateKey or *kemPrivateKey
@@ -41,6 +42,7 @@ var (
 	X25519Kyber768Draft00    = CurveID(0x6399)
 	X25519Kyber768Draft00Old = CurveID(0xfe31)
 	P256Kyber768Draft00      = CurveID(0xfe32)
+	mceliece8192128f	 = CurveID(0xfe33)
 	invalidCurveID           = CurveID(0)
 )
 
@@ -69,7 +71,10 @@ func curveIdToCirclScheme(id CurveID) kem.Scheme {
 		return hybrid.Kyber768X25519()
 	case P256Kyber768Draft00:
 		return hybrid.P256Kyber768Draft00()
+	case mceliece8192128f:
+		return mceliece8192128f.Scheme()
 	}
+	
 	return nil
 }
 
