@@ -35,6 +35,7 @@ import (
 
 	"github.com/cloudflare/circl/internal/sha3"
 	"github.com/cloudflare/circl/kem"
+	"github.com/cloudflare/circl/kem/mceliece/mceliece8192128f"
 	"github.com/cloudflare/circl/kem/kyber/kyber1024"
 	"github.com/cloudflare/circl/kem/kyber/kyber512"
 	"github.com/cloudflare/circl/kem/kyber/kyber768"
@@ -56,6 +57,8 @@ func Kyber1024X448() kem.Scheme { return kyber1024X }
 
 // Returns the hybrid KEM of Kyber768Draft00 and P-256.
 func P256Kyber768Draft00() kem.Scheme { return p256Kyber768Draft00 }
+
+func Mceliece8192128fX25519() kem.Scheme {return mceliece8192128fX }
 
 var p256Kyber768Draft00 kem.Scheme = &scheme{
 	"P256Kyber768Draft00",
@@ -85,6 +88,12 @@ var kyber1024X kem.Scheme = &scheme{
 	"Kyber1024-X448",
 	x448Kem,
 	kyber1024.Scheme(),
+}
+
+var mceliece8192128fX kem.Scheme = &scheme{
+	"Mceliece8192128f-X25519",
+	p256Kem,
+	mceliece8192128f.Scheme(),
 }
 
 // Public key of a hybrid KEM.
